@@ -5,7 +5,8 @@ const drinkSchema = mongoose.Schema({
     description: String,
     isAlcoholic: Boolean,
     categories: [{type: mongoose.Types.ObjectId,  ref: "categories"}],
-    ingredients: [{type: mongoose.Types.ObjectId,  ref: "ingredient"}]
+    ingredients: [{type: mongoose.Types.ObjectId,  ref: "ingredient"}],
+    glasses: [{type: mongoose.Types.ObjectId, ref: "glasses"}]
 })
 
 drinkSchema.set ("timestamps", {

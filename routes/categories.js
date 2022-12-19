@@ -1,6 +1,8 @@
 const express = require('express')
+const { check } = require('express-validator')
 const { request } = require('..')
 const categoriesModel = require('../api/categoriesModel')
+const { categoriesValidation } = require('../validation/categoriesValidation')
 const app = express()
 const router = express.Router()
 
@@ -17,7 +19,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
+router.post('/', (categoriesValidation),(req, res) => {
     const categories = new categoriesModel({
         "name" : req.body.name
     })
@@ -26,7 +28,7 @@ router.post('/', (req, res) => {
     })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', (categoriesValidation), (req, res) => {
     const id =  req.params.id
     categoriesModel.findById(id).exec().then((results) => {
         results.name = req.body.name
@@ -37,7 +39,8 @@ router.put('/:id', (req, res) => {
 
 })
 
-router.patch('/:id', (req, res) => {
+router.patch('/:id', (categoriesValidation),(req, res) => {
+    [check("title").if((value) => !!value).isLength({min: 1})]
     const id = req.params.id
     categoriesModel.findById(id).exec().then((results) => {
         results.name = req.body.name || results.name
