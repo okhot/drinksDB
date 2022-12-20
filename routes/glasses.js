@@ -39,7 +39,7 @@ router.put('/:id', (glassValidaation), (req, res) => {
 })
 
 router.patch('/:id', (glassValidaation),(req, res) => {
-    check("title").if((value) => !!value).isLength({min: 1})]
+    [check("title").if((value) => !!value).isLength({min: 1})]
     const id =  req.params.id
     drinksModel.findById().exec().then((results) => {
         results.name = req.body.name || results.name

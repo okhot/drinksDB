@@ -1,5 +1,6 @@
 const express = require("express")
 const ingredientsModel = require("../api/ingredientsModel")
+const { ingredientValidaation } = require("../validation/ingredientsValidation")
 const app = express()
 const router = express.Router()
 
@@ -16,7 +17,7 @@ router.get("/:id", (req, res) => {
     })
 })
 
-router.post("/", (req, res) => {
+router.post("/", (ingredientValidaation),(req, res) => {
     const ingredients = new ingredientsModel({
         "name" : req.body.name
     })
@@ -25,7 +26,7 @@ router.post("/", (req, res) => {
     })
 })
 
-router.put("/:id", (req, res) => {
+router.put("/:id", (ingredientValidaation), (req, res) => {
     const id = req.params.id
     ingredientsModel.findById(id).exec().then((results) => {
         results.name = req.body.name
@@ -36,7 +37,8 @@ router.put("/:id", (req, res) => {
     })
 })
 
-router.patch("/:id", (req, res) => {
+router.patch("/:id", (ingredientValidaation), (req, res) => {
+    [check("title").if((value) => !!value).isLength({min: 1})]
     const id = req.params.id
     ingredientsModel.findById(id).exec().then((results) => {
         results.name = req.body.name || results.name

@@ -13,11 +13,12 @@ const drinksRoute = require("./routes/drinks")
 const ingredientRoute = require("./routes/ingredients")
 const categoriesRoute = require("./routes/categories")
 const glassesRoute = require("./routes/glasses")
-
+const authRoute = require("./auth/authLogic")
 
 app.use('/drinks', drinksRoute)
 app.use('/ingredient', ingredientRoute)
 app.use('/category', categoriesRoute)
 app.use('/glasses', glassesRoute)
+app.use('/auth', authRoute)
 
 module.exports = app;
